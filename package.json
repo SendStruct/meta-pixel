@@ -1,5 +1,5 @@
 {
-  "name": "@homedia/meta-pixel",
+  "name": "@SendStruct/meta-pixel",
   "version": "1.0.1",
   "description": "Simple, framework agnostic and GDPR Compliance library to track data to Meta Pixel",
   "main": "lib/index.js",

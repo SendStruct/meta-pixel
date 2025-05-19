@@ -17,7 +17,7 @@
   "scripts": {
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\"",
-    "prepare": "yarn build"
+    "prepare": "npm run build"
   },
   "devDependencies": {
     "prettier": "^2.8.8",

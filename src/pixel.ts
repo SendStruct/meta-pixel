@@ -19,7 +19,8 @@ type MetaPixel = {
   setHasGrantedConsent: () => void;
   revokeConsent: () => void;
   pageView: (eventId?: string) => void;
-  track: (title: string, data: MetaPixel.DataCollection) => void;
+  viewContent: (title: string, eventId?: string) => void;
+  track: (title: string, data: MetaPixel.DataCollection, eventId?: string) => void;
   trackSingle: (
     pixelId: string,
     event: MetaPixel.EventName,
@@ -103,19 +104,18 @@ const pageView = (eventId?: string): void => {
   logIfDebugMode(`Track fbq("track", "PageView")`);
 };
 
-const viewContent = (title: string, eventId: string): void => {
+const viewContent = (title: string, eventId?: string): void => {
   if (!initialized) return log(GenericLogMessage.PixelNotInitialized);
-  fbq('track', "ViewContent", undefined, { eventId });
+  eventId ? fbq('track', "ViewContent", {content_name: title}, { eventId }) : fbq('track', "ViewContent", {content_name: title});
   logIfDebugMode(`Track fbq("track", ${title}, { eventId: ${eventId} })`);
 };
 
 /** Read more about tracking at https://developers.facebook.com/docs/meta-pixel/advanced */
-const track = (title: string, data: MetaPixel.DataCollection): void => {
+const track = (title: string, data: MetaPixel.DataCollection, eventId?: string): void => {
   if (!initialized) return log(GenericLogMessage.PixelNotInitialized);
-  fbq('track', title, data);
-  logIfDebugMode(`Track fbq("track", ${title}, ${JSON.stringify(data)})`);
+  eventId ? fbq('track', title, data, { eventId }) : fbq('track', title, data);
+  logIfDebugMode(`Track fbq("track", ${title}, ${JSON.stringify(data)}, { eventId: ${eventId} })`);
 };
-
 
 /** Read more about single tracking at https://developers.facebook.com/docs/meta-pixel/advanced */
 const trackSingle = (

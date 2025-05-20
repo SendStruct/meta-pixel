@@ -35,6 +35,7 @@ declare module MetaPixel {
     ): void;
     (eventType: EventType, title: string): void;
     (eventType: EventType, title: string, data: DataCollection): void;
+    (eventType: EventType, title: string, data: DataCollection, options: { eventId: string }): void;
     (eventType: EventType, eventName: EventName): void;
     (eventType: EventType, eventName: EventName, data: DataCollection): void;
     (eventType: EventType, title: string, data: boolean, pixelId: string): void;

@@ -70,7 +70,6 @@ declare module MetaPixel {
     | 'InitiateCheckout'
     | 'Lead'
     | 'PageView'
-    | 'ViewContent'
     | 'Purchase'
     | 'Schedule'
     | 'Search'

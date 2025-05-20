@@ -19,8 +19,7 @@ type MetaPixel = {
   setHasGrantedConsent: () => void;
   revokeConsent: () => void;
   pageView: (eventId?: string) => void;
-  viewContent: (title: string, eventId?: string) => void;
-  track: (title: string, data: MetaPixel.DataCollection, eventId?: string) => void;
+  track: (title: MetaPixel.EventName, data: MetaPixel.DataCollection, eventId?: string) => void;
   trackSingle: (
     pixelId: string,
     event: MetaPixel.EventName,
@@ -104,14 +103,14 @@ const pageView = (eventId?: string): void => {
   logIfDebugMode(`Track fbq("track", "PageView")`);
 };
 
-const viewContent = (title: string, eventId?: string): void => {
-  if (!initialized) return log(GenericLogMessage.PixelNotInitialized);
-  eventId ? fbq('track', "ViewContent", {content_name: title}, { eventId }) : fbq('track', "ViewContent", {content_name: title});
-  logIfDebugMode(`Track fbq("track", ${title}, { eventId: ${eventId} })`);
-};
+// const viewContent = (title: string, eventId?: string): void => {
+//   if (!initialized) return log(GenericLogMessage.PixelNotInitialized);
+//   eventId ? fbq('track', "ViewContent", {content_name: title}, { eventId }) : fbq('track', "ViewContent", {content_name: title});
+//   logIfDebugMode(`Track fbq("track", ${title}, { eventId: ${eventId} })`);
+// };
 
 /** Read more about tracking at https://developers.facebook.com/docs/meta-pixel/advanced */
-const track = (title: string, data: MetaPixel.DataCollection, eventId?: string): void => {
+const track = (title: MetaPixel.EventName, data: MetaPixel.DataCollection, eventId?: string): void => {
   if (!initialized) return log(GenericLogMessage.PixelNotInitialized);
   eventId ? fbq('track', title, data, { eventId }) : fbq('track', title, data);
   logIfDebugMode(`Track fbq("track", ${title}, ${JSON.stringify(data)}, { eventId: ${eventId} })`);
@@ -157,7 +156,6 @@ export const Pixel: MetaPixel = {
   setHasGrantedConsent,
   revokeConsent,
   pageView,
-  viewContent,
   track,
   trackSingle,
   trackCustom,

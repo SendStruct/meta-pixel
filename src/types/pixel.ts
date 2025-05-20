@@ -17,6 +17,7 @@ declare module MetaPixel {
     | InitiateCheckout
     | Lead
     | PageView
+    | ViewContent
     | Purchase
     | Schedule
     | Search
@@ -30,6 +31,7 @@ declare module MetaPixel {
       pixelId: string,
       eventName: string,
       data: DataCollection,
+      options?: { eventId?: string },
     ): void;
     (eventType: EventType, title: string): void;
     (eventType: EventType, title: string, data: DataCollection): void;
@@ -67,6 +69,7 @@ declare module MetaPixel {
     | 'InitiateCheckout'
     | 'Lead'
     | 'PageView'
+    | 'ViewContent'
     | 'Purchase'
     | 'Schedule'
     | 'Search'

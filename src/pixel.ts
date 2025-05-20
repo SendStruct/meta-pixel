@@ -103,12 +103,19 @@ const pageView = (eventId?: string): void => {
   logIfDebugMode(`Track fbq("track", "PageView")`);
 };
 
+const viewContent = (title: string, eventId: string): void => {
+  if (!initialized) return log(GenericLogMessage.PixelNotInitialized);
+  fbq('track', "ViewContent", undefined, { eventId });
+  logIfDebugMode(`Track fbq("track", ${title}, { eventId: ${eventId} })`);
+};
+
 /** Read more about tracking at https://developers.facebook.com/docs/meta-pixel/advanced */
 const track = (title: string, data: MetaPixel.DataCollection): void => {
   if (!initialized) return log(GenericLogMessage.PixelNotInitialized);
   fbq('track', title, data);
   logIfDebugMode(`Track fbq("track", ${title}, ${JSON.stringify(data)})`);
 };
+
 
 /** Read more about single tracking at https://developers.facebook.com/docs/meta-pixel/advanced */
 const trackSingle = (
@@ -150,6 +157,7 @@ export const Pixel: MetaPixel = {
   setHasGrantedConsent,
   revokeConsent,
   pageView,
+  viewContent,
   track,
   trackSingle,
   trackCustom,
